@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Anti-Gambling Campaign | Interactive Activities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+            background-color: #eef2f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(200, 210, 230, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(210, 190, 230, 0.3) 0%, transparent 45%),
+                repeating-linear-gradient(45deg, rgba(180, 190, 210, 0.08) 0px, rgba(180, 190, 210, 0.08) 2px, transparent 2px, transparent 10px);
+        }
+
+        .poster {
+            max-width: 1250px;
+            width: 100%;
+            background: rgba(248, 250, 252, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 
+                30px 30px 0 rgba(15, 23, 42, 0.06), 
+                0 60px 80px rgba(0, 0, 0, 0.12);
+            padding: 4rem 3.5rem 3.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .bg-geometric {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .geometric-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(30, 41, 59, 0.08);
+        }
+
+        .circle-large {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            right: -150px;
+        }
+
+        .circle-medium {
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -80px;
+            border-color: rgba(185, 28, 28, 0.1);
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(180, 190, 210, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(180, 190, 210, 0.15) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+
+        .poster-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+        }
+
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .awareness-badge {
+            background: #1e293b;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            padding: 0.7rem 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 8px 8px 0 rgba(185, 28, 28, 0.25);
+        }
+
+        .main-headline {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            text-shadow: 4px 4px 0 rgba(185, 28, 28, 0.15);
+        }
+
+        .red-highlight {
+            color: #b91c1c;
+            position: relative;
+            display: inline-block;
+        }
+
+        .red-highlight::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            bottom: 12px;
+            width: calc(100% + 12px);
+            height: 20px;
+            background: rgba(248, 113, 113, 0.35);
+            z-index: -1;
+        }
+
+        .sub-headline {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #334155;
+            letter-spacing: 3px;
+            border-top: 3px solid #cbd5e1;
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .activities-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .activity-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 16px 16px 0 rgba(15, 23, 42, 0.05), 0 20px 40px rgba(0, 0, 0, 0.06);
+            padding: 2.5rem 1.8rem 2.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .activity-panel:hover {
+            transform: translateY(-5px);
+        }
+
+        .activity-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+        }
+
+        .panel-1::before { background: #f97316; }
+        .panel-2::before { background: #8b5cf6; }
+        .panel-3::before { background: #0284c7; }
+
+        /* 图片容器 - 适配9:16纵向图片，固定高度限制 */
+        .illustration-box {
+            width: 100%;
+            max-width: 240px;        /* 限制最大宽度，避免图片过宽 */
+            height: 340px;           /* 固定高度，9:16比例下宽度约191px */
+            margin: 1rem 0 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #f1f5f9;
+        }
+
+        .illustration-box img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;     /* 完整显示图片，不变形 */
+            display: block;
+        }
+
+        .panel-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-tag {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 0.4rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-desc {
+            color: #334155;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        .panel-action {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #0f172a;
+            border-bottom: 3px solid #94a3b8;
+            padding-bottom: 4px;
+            letter-spacing: 0.8px;
+        }
+
+        .panel-1 .panel-action { border-color: #fdba74; }
+        .panel-2 .panel-action { border-color: #c4b5fd; }
+        .panel-3 .panel-action { border-color: #7dd3fc; }
+
+        .footer-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            background: rgba(15, 23, 42, 0.04);
+            padding: 1.8rem 3rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+            letter-spacing: 1.5px;
+            border-top: 2px solid #cbd5e1;
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        .banner-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .banner-divider {
+            width: 3px;
+            height: 28px;
+            background: #94a3b8;
+            opacity: 0.5;
+        }
+
+        /* 响应式适配：小屏幕图片容器高度适当减小 */
+        @media (max-width: 950px) {
+            .activities-row {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .main-headline {
+                font-size: 3.2rem;
+            }
+            .poster {
+                padding: 2.5rem 2rem;
+            }
+            .illustration-box {
+                height: 280px;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="bg-geometric">
+            <div class="geometric-circle circle-large"></div>
+            <div class="geometric-circle circle-medium"></div>
+            <div class="grid-lines"></div>
+        </div>
+
+        <div class="poster-content">
+            <div class="header-section">
+                <div class="awareness-badge">⚠️ Anti-Gambling Awareness</div>
+                <h1 class="main-headline">
+                    Break the <span class="red-highlight">Myth</span><br>Not Your Future
+                </h1>
+                <div class="sub-headline">INTERACTIVE EXPERIENTIAL CAMPAIGN</div>
+            </div>
+
+            <div class="activities-row">
+                <!-- 活动 1: 篮球砸罐头 -->
+                <div class="activity-panel panel-1">
+                    <div class="illustration-box">
+                        <img src="1.jpg" alt="Basketball can knockdown - Rigged carnival game">
+                    </div>
+                    <h2 class="panel-title">Basketball Can Knockdown</h2>
+                    <div class="panel-tag">Rigged to Fail</div>
+                    <p class="panel-desc">
+                        Experience how carnival games are engineered. Cans are weighted and stacked deceptively to make winning nearly impossible.
+                    </p>
+                    <span class="panel-action">UNCOVER THE TRICK</span>
+                </div>
+
+                <!-- 活动 2: 盲箱中抽球 -->
+                <div class="activity-panel panel-2">
+                    <div class="illustration-box">
+                        <img src="2.jpg" alt="Blind box ball draw - The dopamine trap">
+                    </div>
+                    <h2 class="panel-title">Blind Box Ball Draw</h2>
+                    <div class="panel-tag">The Dopamine Trap</div>
+                    <p class="panel-desc">
+                        Reach into the unknown. Unpredictable rewards and near‑misses trick your brain into chasing losses and risking more.
+                    </p>
+                    <span class="panel-action">EXPLORE THE PSYCHOLOGY</span>
+                </div>
+
+                <!-- 活动 3: 下注在线模拟赌博 -->
+                <div class="activity-panel panel-3">
+                    <div class="illustration-box">
+                        <img src="3.jpg" alt="Online simulated betting - The house always wins">
+                    </div>
+                    <h2 class="panel-title">Online Simulated Betting</h2>
+                    <div class="panel-tag">The House Edge</div>
+                    <p class="panel-desc">
+                        Try a live betting platform with virtual money. See how quickly odds stack against you — the house always wins in the long run.
+                    </p>
+                    <span class="panel-action">SIMULATE THE LOSS</span>
+                </div>
+            </div>
+
+            <div class="footer-banner">
+                <div class="banner-item">🎯 KNOW THE ODDS</div>
+                <div class="banner-divider"></div>
+                <div class="banner-item">🧠 PROTECT YOUR MIND</div>
+                <div class="banner-divider"></div>
+                <div class="banner-item">🛡️ STOP THE CYCLE</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
