@@ -1,6 +1,4 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
+#include<bits/stdc++.h>
 #define Maxn 200000
 using namespace std;
 void check_min(int &x,int y)
