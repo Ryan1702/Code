@@ -1,7 +1,4 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<stack>
+#include<bits/stdc++.h>
 #define Maxn 100000
 using namespace std;
 int head[Maxn+5],to[Maxn+5],nex[Maxn+5],tot;
